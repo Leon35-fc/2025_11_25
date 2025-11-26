@@ -10,12 +10,11 @@ const AddComment = function(props) {
   //   },
   // }
 
-  const [{comment: {
-            comment,
-            rate,
-            elementId,
-          },
-         }, setComments] = useState('', 1, props.asin)
+const [comment, setComment] = useState({
+  comment: '',
+  rate: 1,
+  elementId: props.asin,
+});
 
   // componentDidUpdate(prevProps) {
   //   if (prevProps.asin !== this.props.asin) {
@@ -29,20 +28,20 @@ const AddComment = function(props) {
   // }
 
   useEffect(() => {
-    setComments(...comment, {elementId: props.asin})
-  }, [comment, props.asin])
+    setComment({...comment, elementId: props.asin})
+  }, [props.asin])
 
-const  sendComment = async (e) => {
+const sendComment = async (e) => {
     e.preventDefault()
     try {
       let response = await fetch(
         'https://striveschool-api.herokuapp.com/api/comments',
         {
           method: 'POST',
-          body: JSON.stringify(this.state.comment),
+          body: JSON.stringify(comment),
           headers: {
             'Content-type': 'application/json',
-            Authorization: 'Bearer inserisci-qui-il-tuo-token',
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTFmMjE4ZjIzZTc0MDAwMTVmN2ZkZGYiLCJpYXQiOjE3NjM2NDc4ODcsImV4cCI6MTc2NDg1NzQ4N30.bUKzmEZrP_XuInVZkHwAnbFFrLLQdMQ-Na7FLIh6oYo',
           },
         }
       )
@@ -55,7 +54,7 @@ const  sendComment = async (e) => {
         //     elementId: props.asin,
         //   },
         // })
-        setComments(...comment, {comment:{
+        setComment({...comment, comment:{
                                   comment:'',
                                   rate: 1,
                                   elementId: props.asin
@@ -85,7 +84,7 @@ const  sendComment = async (e) => {
                 //     comment: e.target.value,
                 //   },
                 // })
-                setComments(...comment, {comment:e.target.value})
+                setComment({...comment, comment:e.target.value})
               }
             />
           </Form.Group>
@@ -101,7 +100,7 @@ const  sendComment = async (e) => {
                 //     rate: e.target.value,
                 //   },
                 // })
-                setComments(...comment, {rate: e.target.value})
+                setComment({...comment, rate: e.target.value})
               }
             >
               <option>1</option>

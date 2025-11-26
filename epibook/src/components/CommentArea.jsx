@@ -79,7 +79,7 @@ const CommentArea = function (props) {
         setIsError(true)
       }})
   
-  }, [props.asin])
+  }, )
 
   return (
     <div className="text-center">
